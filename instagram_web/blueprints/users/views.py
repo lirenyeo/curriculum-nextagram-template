@@ -1,9 +1,15 @@
 from flask import Blueprint, render_template
-
+from app import login_manager
+from models.user import User
 
 users_blueprint = Blueprint('users',
                             __name__,
                             template_folder='templates')
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.get_by_id(user_id)
 
 
 @users_blueprint.route('/new', methods=['GET'])

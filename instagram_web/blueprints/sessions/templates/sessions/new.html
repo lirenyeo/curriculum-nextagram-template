@@ -8,16 +8,11 @@
 <div id="login-page">
   <div class="card">
     <div class="card-body">
-      <h2 class="card-title text-center my-3">Nextagram</h5>
-      <p class="card-subtitle text-center text-muted mb-4
-      ">
-          Sign up to see photos and videos from your friends.
-      </p>
+      <h2 class="card-title text-center mt-3 mb-4">Nextagram</h5>
       <form action="">
         <input class="form-control mb-2 font-secondary" type="text" placeholder="username">
-        <input class="form-control mb-2 font-secondary" type="email" placeholder="email">
-        <input class="form-control mb-3 font-secondary" type="password" placeholder="password">
-        <input class="btn btn-block btn-primary" type="submit" value="Sign Up">
+        <input class="form-control mb-3 font-secondary" type="text" placeholder="password">
+        <input class="btn btn-block btn-primary" type="submit" value="Login">
       </form>
       <hr class="my-4 ">
       <p class="text-center m-0">
@@ -29,7 +24,7 @@
 
   <div class="card mt-3">
     <div class="card-body">
-      <p class="card-text text-muted text-center">Have an account? <a href="{{ url_for('sessions.new') }}">Log In</a></p>
+        <p class="card-text text-muted">Don't have an account? <a href="{{ url_for('users.new') }}">Sign Up Here</a></p>
     </div>
   </div>
 </div>
