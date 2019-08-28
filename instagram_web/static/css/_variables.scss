@@ -14,3 +14,15 @@ $primary-accent-light3: lighten($primary-accent, 15%);
     transform: scale(1.1);
   }
 }
+
+.sucked-into-blackhole {
+  @keyframes suck {
+    0% { transform: rotate(0deg) scale(1); }
+    25% { transform: rotate(180deg) scale(.75); }
+    50% { transform: rotate(360deg) scale(.5); }
+    70% { transform: rotate(180deg) scale(.3); }
+    100% { transform: rotate(360deg) scale(0); }
+  }
+
+  animation: suck 1s 1;
+}
