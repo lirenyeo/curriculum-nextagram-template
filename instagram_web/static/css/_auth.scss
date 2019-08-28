@@ -1,0 +1,39 @@
+body {
+  font-family: 'Indie Flower', cursive;
+  background: #fafafa;
+}
+
+.font-secondary {
+  font-family: 'Raleway', sans-serif !important;
+}
+
+#login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: calc(100vh - 57px);
+}
+
+#login-page .card {
+  width: 19rem;
+}
+
+#login-page .card input::placeholder {
+  color: #bdbdbd;
+}
+
+#login-page hr {
+  position: relative;
+}
+
+#login-page hr::before {
+  content: 'OR';
+  background: white;
+  top: -11px;
+  position: absolute;
+  left: 50%;
+  width: 50px;
+  text-align: center;
+  transform: translateX(-50%);
+}
