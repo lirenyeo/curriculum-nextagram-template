@@ -1,17 +1,18 @@
 {% extends "_layout.html" %}
+
 {% block title %}
-  Homepage
+  Nextagram - Log In
 {% endblock %}
-{% block header %}
-{% endblock %}
+
+
 {% block content %}
 <div id="login-page">
   <div class="card">
     <div class="card-body">
       <h2 class="card-title text-center mt-3 mb-4">Nextagram</h5>
-      <form action="">
-        <input class="form-control mb-2 font-secondary" type="text" placeholder="username">
-        <input class="form-control mb-3 font-secondary" type="text" placeholder="password">
+      <form action="{{ url_for('sessions.create') }}" method="POST">
+        <input class="form-control mb-2 font-secondary" type="text" placeholder="username" name="username">
+        <input class="form-control mb-3 font-secondary" type="password" placeholder="password" name="password">
         <input class="btn btn-block btn-primary" type="submit" value="Login">
       </form>
       <hr class="my-4 ">

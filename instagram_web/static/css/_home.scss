@@ -1,0 +1,11 @@
+nav {
+  height: 60px;
+}
+
+.container {
+  min-height: calc(100vh - 60px);
+}
+
+h1.title {
+  color: $primary-accent;
+}

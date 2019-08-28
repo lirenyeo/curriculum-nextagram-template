@@ -1,0 +1,16 @@
+$primary-accent: #009bca;
+
+
+$primary-accent-light: lighten($primary-accent, 5%);
+$primary-accent-light2: lighten($primary-accent, 10%);
+$primary-accent-light3: lighten($primary-accent, 15%);
+
+
+
+
+@mixin zoom-on-hover {
+  transition: 0.2 ease-in;
+  &:hover {
+    transform: scale(1.1);
+  }
+}

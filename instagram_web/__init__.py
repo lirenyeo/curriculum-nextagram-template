@@ -1,6 +1,6 @@
 from flask_login import current_user
 from app import app
-from flask import render_template, redirect, url_for
+from flask import render_template, redirect, url_for, flash
 from instagram_web.blueprints.users.views import users_blueprint
 from instagram_web.blueprints.sessions.views import sesssions_blueprint
 from flask_assets import Environment, Bundle
@@ -22,4 +22,5 @@ def home():
     if current_user.is_authenticated:
         return render_template('home.html')
     else:
+        flash('You need to login to use Nextagram!')
         return redirect(url_for('sessions.new'))

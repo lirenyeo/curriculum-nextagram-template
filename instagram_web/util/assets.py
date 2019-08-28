@@ -12,8 +12,9 @@ bundles = {
 
     'home_css': Bundle(
         'css/vendor/bootstrap-4.1.3.css',
-        'css/custom.css',
-        filters='cssmin',
+        'css/custom.scss',
+        depends=['css/*.scss'],
+        filters='libsass',
         output='gen/home.%(version)s.css'),
 
     # 'admin_js': Bundle(
