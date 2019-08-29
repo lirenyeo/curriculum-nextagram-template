@@ -1,0 +1,57 @@
+#user-show {
+  .right-grid {
+    padding: 2em 1em;
+    min-height: $content-height;
+  }
+
+  .left-grid {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 1em 2em;
+
+    @media (min-width: $md-break) {
+      min-height: $content-height;
+    }
+
+    .username {
+      letter-spacing: 2px;
+    }
+
+    .blockquote {
+      position: relative;
+      margin-top: 50px;
+      margin-left: 30px;
+      color: $text-gray;
+
+      hr {
+        border-top: solid 2px $primary-accent;
+        // border-top: solid 3px $gray-1;
+        width: 50%;
+        margin: 0;
+        position: absolute;
+        bottom: -20px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      img {
+        position: absolute;
+        left: -20px;
+        top: -50px;
+        height: 80px;
+        z-index: -1;
+      }
+    }
+
+    .info {
+      margin-top: 2.5em;
+      margin-bottom: 2.5em;
+      .info-value {
+        margin-bottom: 1em;
+        // color: $text-gray;
+      }
+    }
+
+  }
+}

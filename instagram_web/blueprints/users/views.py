@@ -35,7 +35,8 @@ def create():
 
 @users_blueprint.route('/<username>', methods=["GET"])
 def show(username):
-    pass
+    user = User.get_or_none(username=username)
+    return render_template('users/show.html')
 
 
 @users_blueprint.route('/', methods=["GET"])
@@ -45,7 +46,8 @@ def index():
 
 @users_blueprint.route('/<id>/edit', methods=['GET'])
 def edit(id):
-    pass
+    user = User.get_by_id(id)
+    return render_template('/users/edit.html', user=user)
 
 
 @users_blueprint.route('/<id>', methods=['POST'])

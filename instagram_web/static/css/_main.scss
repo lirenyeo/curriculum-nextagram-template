@@ -1,0 +1,20 @@
+body {
+  font-family: 'Indie Flower', cursive;
+  background: #fafafa;
+  letter-spacing: .8px;
+}
+
+.font-secondary {
+  font-family: 'Raleway', sans-serif !important;
+}
+
+.text-accent {
+  color: $primary-accent !important;
+}
+
+.full-page-illus {
+  display: block;
+  width: 80%;
+  max-width: 500px;
+  margin: auto;
+}
