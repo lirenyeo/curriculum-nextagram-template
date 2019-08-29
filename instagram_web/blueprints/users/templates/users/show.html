@@ -1,0 +1,42 @@
+{% extends "_layout.html" %}
+
+{% block title %}
+  Nextagram - {{current_user.username }}
+{% endblock %}
+
+{% block content %}
+<div id="user-show">
+  <div class="row">
+    <div class="left-grid col-md-4 border-right">
+      <img
+        src="https://ui-avatars.com/api/?name={{
+          current_user.username
+        }}"
+        class="rounded-circle z-depth-0"
+        alt="avatar image"
+        height="150"
+      />
+      <h4 class="username mt-3">{{current_user.username}}</h4>
+      <p class="text-right text-muted">
+        <span class="mx-1"><strong>0</strong> Post</span>
+        <span class="mx-1"><strong>0</strong> Friends</span>
+      </p>
+      <div class="info">
+        <label class="text-accent text-muted mb-0">Email</label>
+        <h5 class="info-value">{{current_user.email}}</h5>
+        <label class="text-accent text-muted mb-0">Last Login</label>
+        <h5 class="info-value">{{current_user.updated_at.strftime('%b %-d, %Y at %-I:%M%p')}}</h5>
+      </div>
+      <blockquote class="blockquote">
+        <hr>
+        <img src="{{ url_for('static', filename='images/quote.svg')}}" >
+        Instagram is life. I can't live without it...
+      </blockquote>
+    </div>
+    <div class="right-grid col-md-8 bg-white">
+      <h4 class="text-center mb-5">Oops.. {{current_user.username}} hasn't posted anything yet!</h4>
+      <img class="full-page-illus" src="{{ url_for('static', filename='images/undraw_empty.svg')}}" alt="">
+    </div>
+  </div>
+</div>
+{% endblock %}

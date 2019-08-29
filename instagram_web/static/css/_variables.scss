@@ -1,16 +1,27 @@
-$primary-accent: #009bca;
-
+$primary-accent: #da2100;
 
 $primary-accent-light: lighten($primary-accent, 5%);
-$primary-accent-light2: lighten($primary-accent, 10%);
-$primary-accent-light3: lighten($primary-accent, 15%);
+$primary-accent-lighter: lighten($primary-accent, 10%);
+$primary-accent-lightest: lighten($primary-accent, 15%);
 
+$text-gray: #5b5b5b;
+$gray-1: #e3e3e3;
 
+$content-height: calc(100vh - 60px);
 
+$sm-break: 576px;
+$md-break: 768px;
+$lg-break: 992px;
+$xl-break: 1200px;
 
-@mixin zoom-on-hover {
-  transition: 0.2 ease-in;
-  &:hover {
-    transform: scale(1.1);
+.sucked-into-blackhole {
+  @keyframes suck {
+    0% { transform: rotate(0deg) scale(1); }
+    25% { transform: rotate(180deg) scale(.75); }
+    50% { transform: rotate(360deg) scale(.5); }
+    70% { transform: rotate(180deg) scale(.3); }
+    100% { transform: rotate(360deg) scale(0); }
   }
+
+  animation: suck 1s 1;
 }
