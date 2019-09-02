@@ -1,7 +1,26 @@
 #user-show {
   .right-grid {
-    padding: 2em 1em;
+    padding: 1em;
     min-height: $content-height;
+
+    .grid-item {
+      float: left;
+      height: 400px;
+      margin: 2px;
+      width: calc(33.33% - 4px);
+      @media (max-width: $md-break) {
+        width: calc(50% - 4px);
+      }
+      @media (max-width: $sm-break) {
+        width: 100%;
+      }
+
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+      }
+    }
   }
 
   .left-grid {

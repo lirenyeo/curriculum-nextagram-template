@@ -15,9 +15,9 @@ def new():
 
 @sesssions_blueprint.route('/', methods=['POST'])
 def create():
-    user = User.get(User.username == request.form.get('username'))
+    user = User.get_or_none(User.username == request.form.get('username'))
 
-    if user.validate_login(request.form.get('password')):
+    if user and user.validate_login(request.form.get('password')):
         login_user(user)
         flash(f"Welcome back, {user.username}", 'info')
         return redirect(url_for('home'))

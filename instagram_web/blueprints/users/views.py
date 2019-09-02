@@ -36,7 +36,10 @@ def create():
 @users_blueprint.route('/<username>', methods=["GET"])
 def show(username):
     user = User.get_or_none(username=username)
-    return render_template('users/show.html')
+    if user:
+        return render_template('users/show.html', user=user)
+    else:
+        return render_template('users/404.html')
 
 
 @users_blueprint.route('/', methods=["GET"])

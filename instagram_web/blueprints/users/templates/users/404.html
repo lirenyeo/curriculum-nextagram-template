@@ -1,0 +1,12 @@
+{% extends "_layout.html" %}
+
+{% block title %}
+  Nextagram - 404
+{% endblock %}
+
+{% block content %}
+<div class="p-4 h-100 w-100 d-flex justify-content-center align-items-center flex-column">
+  <h4 class="text-center mb-5">No such user lah...</h4>
+  <img class="full-page-illus" src="{{ url_for('static', filename='images/undraw_empty.svg')}}" alt="">
+</div>
+{% endblock %}

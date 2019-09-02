@@ -18,3 +18,21 @@ body {
   max-width: 500px;
   margin: auto;
 }
+
+#upload-modal {
+  #add-file-illus {
+    height: 120px;
+  }
+  .dropzone {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 250px;
+    border: dashed 3px $gray-1;
+
+    .dz-preview .dz-image {
+      height: 200px;
+      width: 200px;
+    }
+  }
+}
