@@ -28,6 +28,27 @@
   </head>
 
   <body>
+    <!-- Modal -->
+    <div class="modal fade" id="upload-modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+              <form action="{{ url_for('posts.create')}}" method="post" enctype="multipart/form-data" id="nav-dropzone" class="dropzone">
+                <div class="dz-message" data-dz-message>
+                  <img id="add-file-illus" src="{{ url_for('static', filename='images/undraw_add_file.svg')}}" />
+                  <p class="text-muted mt-4">Drag images here</p>
+                  <p class="text-muted">Or click to browse files</p>
+                  <em class="text-muted">(Maximum 10 Files)</em>
+                </div>
+              </form>
+          </div>
+          <!-- <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Done</button>
+          </div> -->
+        </div>
+      </div>
+    </div>
+
     <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom">
       <a class="navbar-brand" href="{{ url_for('home') }}">
         <img
@@ -39,6 +60,8 @@
         />
         Nextagram
       </a>
+
+      {% if current_user.is_authenticated %}
       <button
         class="navbar-toggler"
         type="button"
@@ -52,48 +75,49 @@
       </button>
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item d-flex justify-content-center align-items-center mx-2">
-            <a class="nav-link text-accent" href="/users/{{current_user.username}}">Upload</a>
-          </li>
-          <li class="nav-item d-flex justify-content-center align-items-center mx-2">
-            <a class="nav-link" href="/users/{{current_user.username}}">My Profile</a>
-          </li>
-          <li class="nav-item d-flex justify-content-center align-items-center mx-2">
-            <a id="troll-button" class="nav-link" href="#">Help</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              id="navbarDropdown"
-              role="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              <img
-                src="https://ui-avatars.com/api/?name={{
-                  current_user.username
-                }}"
-                class="rounded-circle z-depth-0"
-                alt="avatar image"
-                height="40"
-              />
-            </a>
-            <div
-              class="dropdown-menu dropdown-menu-right"
-              aria-labelledby="navbarDropdown"
-            >
-              <a class="dropdown-item" href="{{url_for('users.edit', id=current_user.id)}}">Edit Profile</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="{{ url_for('sessions.destroy') }}"
-                >Log Out</a
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item d-flex justify-content-center align-items-center mx-2">
+              <a data-toggle="modal" data-target="#upload-modal" class="nav-link text-accent" href="/users/{{current_user.username}}"><strong>Upload</strong></a>
+            </li>
+            <li class="nav-item d-flex justify-content-center align-items-center mx-2">
+              <a class="nav-link" href="/users/{{current_user.username}}">My Profile</a>
+            </li>
+            <li class="nav-item d-flex justify-content-center align-items-center mx-2">
+              <a id="troll-button" class="nav-link" href="#">Help</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
               >
-            </div>
-          </li>
-        </ul>
-      </div>
+                <img
+                  src="https://ui-avatars.com/api/?name={{
+                    current_user.username
+                  }}"
+                  class="rounded-circle z-depth-0"
+                  alt="avatar image"
+                  height="40"
+                />
+              </a>
+              <div
+                class="dropdown-menu dropdown-menu-right"
+                aria-labelledby="navbarDropdown"
+              >
+                <a class="dropdown-item" href="{{url_for('users.edit', id=current_user.id)}}">Edit Profile</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{{ url_for('sessions.destroy') }}"
+                  >Log Out</a
+                >
+              </div>
+            </li>
+          </ul>
+        </div>
+      {% endif %}
     </nav>
     {% with messages = get_flashed_messages(with_categories=true) %} {% if
     messages %} {% for category, message in messages %}
@@ -105,4 +129,18 @@
     </div>
     {% endfor %} {% endif %} {% endwith %} {% block content %} {% endblock %}
   </body>
+  <script>
+    Dropzone.options.navDropzone = {
+      thumbnailWidth: 200,
+      thumbnailHeight: 200,
+      acceptedFiles: 'image/*',
+      uploadMultiple: true,
+      parallelUploads: 10,
+      init: function() {
+        this.on('success', function(file, response) {
+          window.location.replace('{{url_for("users.show", username=current_user.username)}}');
+        })
+      }
+    }
+  </script>
 </html>

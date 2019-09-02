@@ -6,12 +6,15 @@ bundles = {
         'js/vendor/jquery-3.3.1.js',
         'js/vendor/popper.js',
         'js/vendor/bootstrap-4.1.3.js',
+        'js/vendor/dropzone.js',
+        'js/vendor/masonry.js',
         'js/custom.js',
         filters='jsmin',
         output='gen/home.%(version)s.js'),
 
     'home_css': Bundle(
         'css/vendor/bootstrap-4.1.3.css',
+        'css/vendor/dropzone.scss',
         'css/custom.scss',
         depends=['css/*.scss'],
         filters='libsass',
