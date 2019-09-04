@@ -6,6 +6,10 @@
 {% endblock %}
 {% block content %}
 <div id="home-container">
-  <h4 class="m-5 text-center">Work in Progress. Come back in never.</h4>
+  <div class="text-center p-5">
+    {% for user in users %}
+      <a class="d-block m-3 text-danger" href="{{url_for('users.show', username=user.username)}}">{{user.id}} - {{user.username}}</a>
+    {% endfor %}
+  </div>
 </div>
 {% endblock %}
