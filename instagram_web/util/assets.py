@@ -8,6 +8,7 @@ bundles = {
         'js/vendor/bootstrap-4.1.3.js',
         'js/vendor/dropzone.js',
         'js/vendor/masonry.js',
+        'js/vendor/axios.js',
         'js/custom.js',
         filters='jsmin',
         output='gen/home.%(version)s.js'),

@@ -1,7 +1,8 @@
-from flask import Blueprint, render_template, flash, request, redirect, url_for
+from flask import Blueprint, render_template, flash, request, redirect, url_for, jsonify
+from flask_login import current_user
 from app import login_manager
 from models.user import User
-
+from models.following import Following
 users_blueprint = Blueprint('users',
                             __name__,
                             template_folder='templates')
@@ -56,3 +57,28 @@ def edit(id):
 @users_blueprint.route('/<id>', methods=['POST'])
 def update(id):
     pass
+
+
+@users_blueprint.route('/<id>/follow')
+def follow(id):
+    follow = Following(idol_id=id, fan_id=current_user.id)
+    follow.save()
+    response = {
+        "status": "success",
+        "new_follower_count": len(User.get_by_id(id).followers)
+    }
+
+    return jsonify(response)
+
+
+@users_blueprint.route('/<id>/unfollow')
+def unfollow(id):
+   unfollow = Following.delete().where((Following.idol_id == id) &
+                              (current_user.id == Following.fan_id))
+   unfollow.execute()
+   response = {
+       "status": "success",
+       "new_follower_count": len(User.get_by_id(id).followers)
+   }
+
+   return jsonify(response)
