@@ -1,7 +1,11 @@
 body {
   font-family: 'Indie Flower', cursive;
   background: #fafafa;
-  letter-spacing: .8px;
+  letter-spacing: 0.8px;
+}
+
+:focus {
+  outline: 0;
 }
 
 .font-secondary {
@@ -25,14 +29,15 @@ body {
   }
   .dropzone {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     min-height: 250px;
     border: dashed 3px $gray-1;
 
     .dz-preview .dz-image {
-      height: 200px;
-      width: 200px;
+      height: 120px;
+      width: 120px;
     }
   }
 }

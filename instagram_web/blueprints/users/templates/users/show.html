@@ -19,8 +19,16 @@
       <h4 class="username mt-3">{{user.username}}</h4>
       <p class="text-right text-muted">
         <span class="mx-1"><strong>{{user.posts.count()}}</strong> Post</span>
-        <span class="mx-1"><strong>0</strong> Friends</span>
+        <span class="mx-1"><strong id="followers-count">{{user.followers | length}}</strong> Followers</span>
+        <span class="mx-1"><strong id="followings-count">{{user.followings | length}}</strong> Follows</span>
       </p>
+      {% if current_user.username != user.username %}
+        {% if current_user.is_following(user) %}
+          <a id="{{user.id}}" href="{{url_for('users.unfollow', id=user.id)}}" class="unfollow-btn btn btn-outline-info">Unfollow</a>
+        {% else %}
+          <a id="{{user.id}}" href="{{url_for('users.follow', id=user.id)}}" class="follow-btn btn btn-info">Follow</a>
+        {% endif %}
+      {% endif %}
       <div class="info">
         <label class="text-accent text-muted mb-0">Email</label>
         <h5 class="info-value">{{user.email}}</h5>
