@@ -10,6 +10,12 @@ class User(BaseModel, UserMixin):
     first_name = pw.CharField(unique=False, null=True)
     last_name = pw.CharField(unique=False, null=True)
     password = pw.CharField()
+    description = pw.CharField(null=True)
+
+    def validate(self):
+        self.errors.append('username existed')
+        self.errors.append('this always happen')
+
 
     @hybrid_property
     def followers(self):

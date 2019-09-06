@@ -5,6 +5,52 @@
 {% endblock %}
 
 {% block content %}
-<h4 class="m-5 text-center  ">Too bad, there is no turning back.<br>No Edit Allowed!</h4>
-<img class="full-page-illus" src="{{ url_for('static', filename='images/undraw_joyride.svg')}}" />
+<!-- <h4 class="m-5 text-center  ">Too bad, there is no turning back.<br>No Edit Allowed!</h4>
+<img class="full-page-illus" src="{{ url_for('static', filename='images/undraw_joyride.svg')}}" /> -->
+
+<div id="user-edit-page" class="">
+  <img
+    src="https://ui-avatars.com/api/?name={{
+      user.username
+    }}"
+    class="avatar rounded-circle z-depth-0"
+    alt="avatar image"
+    height="100"
+  />
+  <h4 class="username text-center mt-3">{{user.username}}</h4>
+  <p class="text-center text-muted">
+    <span class="mx-1"><strong>{{user.posts.count()}}</strong> Post</span>
+    <span class="mx-1"><strong id="followers-count">{{user.followers | length}}</strong> Followers</span>
+    <span class="mx-1"><strong id="followings-count">{{user.followings | length}}</strong> Follows</span>
+  </p>
+
+  <form id="user-edit-form">
+    <div class="form-group">
+      <label class="ml-1">Email address</label>
+      <input type="email" class="form-control" value="{{user.email}}">
+    </div>
+    <div class="row">
+      <div class="form-group col-6">
+        <label class="ml-1">First Name</label>
+        <input type="text" class="form-control" value="{{user.first_name or '' }}">
+      </div>
+      <div class="form-group col-6">
+        <label class="ml-1">Last Name</label>
+        <input type="text" class="form-control" value="{{user.last_name or '' }}">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="ml-1">New Password</label>
+      <input type="password" class="form-control">
+    </div>
+    <div class="form-group">
+      <label class="ml-1">New Password Confirmation</label>
+      <input type="password" class="form-control">
+    </div>
+    <hr>
+    <div class="text-muted">Leave the password fields blank if you do not wish to change password</div>
+
+    <div class="text-right"><button type="submit" class="btn btn-primary">Update</button></div>
+  </form>
+</div>
 {% endblock %}

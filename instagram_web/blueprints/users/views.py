@@ -27,8 +27,8 @@ def create():
     )
 
     if user.save():
-        flash('Nice! Log in to your shiny new account now.', 'primary')
-        return redirect(url_for('sessions.new'))
+        flash(f'Welcome {user.username}! Tell us more about you!', 'primary')
+        return redirect(url_for('users.edit', id=user.id))
     else:
         flash(''.join(user.errors))
         return render_template('users/new.html')

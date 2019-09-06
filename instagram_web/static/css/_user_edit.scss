@@ -1,0 +1,25 @@
+#user-edit-page {
+  width: 100%;
+  max-width: 400px;
+  margin: 1.5em auto;
+  padding: 1em;
+  // border: solid 1px $gray-border;
+  // border-radius: 8px;
+
+  .avatar {
+    display: block;
+    margin: auto;
+  }
+
+  #user-edit-form {
+    margin-top: 2em;
+    .form-group {
+      margin-top: .8em;
+
+      label {
+        font-weight: 900;
+        margin-bottom: 5px;
+      }
+    }
+  }
+}

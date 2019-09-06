@@ -16,7 +16,7 @@ bundles = {
     'home_css': Bundle(
         'css/vendor/bootstrap-4.1.3.css',
         'css/vendor/dropzone.scss',
-        'css/custom.scss',
+        'css/base.scss',
         depends=['css/*.scss'],
         filters='libsass',
         output='gen/home.%(version)s.css'),
