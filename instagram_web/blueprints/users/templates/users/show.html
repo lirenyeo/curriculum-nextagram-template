@@ -28,6 +28,8 @@
         {% else %}
           <a id="{{user.id}}" href="{{url_for('users.follow', id=user.id)}}" class="follow-btn btn btn-info">Follow</a>
         {% endif %}
+      {% else %}
+        <a id="{{user.id}}" href="{{url_for('users.edit', id=user.id)}}" class="btn btn-outline-danger">Edit Profile</a>
       {% endif %}
       <div class="info">
         <label class="text-accent text-muted mb-0">Email</label>
@@ -38,7 +40,7 @@
       <blockquote class="blockquote">
         <hr>
         <img src="{{ url_for('static', filename='images/quote.svg')}}" >
-        Instagram is life. I can't live without it...
+        {{ user.description or "<em class='text-muted'>This user has nothing to say!</em>" | safe}}
       </blockquote>
     </div>
 

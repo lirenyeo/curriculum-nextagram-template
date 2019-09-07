@@ -44,12 +44,28 @@ def create():
 @users_api_blueprint.route('/me', methods=['GET'])
 @jwt_required
 def me():
-    # Access the identity of the current user with get_jwt_identity
     current_user_id = get_jwt_identity()
     current_user = User.get_by_id(current_user_id)
+
     return jsonify({
         "username": current_user.username,
-        "id": current_user.id
+        "id": current_user.id,
+        "images": [post.image_full_url for post in current_user.posts]
     })
 
 
+@users_api_blueprint.route('/login', methods=['POST'])
+def login():
+    username = request.json.get('username'),
+    password = request.json.get('password')
+
+    user = User.get_or_none(User.username == username)
+
+    if user and user.validate_login(password):
+        return jsonify({
+            "jwt": create_access_token(identity=user.id)
+        })
+    else:
+        return jsonify({
+            "message": "Invalid login credentials"
+        }), 400

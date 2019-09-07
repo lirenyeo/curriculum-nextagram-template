@@ -18,6 +18,8 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 jwt = JWTManager(app)
 
+app.config['JWT_ACCESS_TOKEN_EXPIRES'] = False
+
 if os.getenv('FLASK_ENV') == 'production':
     app.config.from_object("config.ProductionConfig")
 else:

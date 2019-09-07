@@ -56,8 +56,19 @@ def edit(id):
 
 @users_blueprint.route('/<id>', methods=['POST'])
 def update(id):
-    pass
+    user = User.get_by_id(id)
 
+    user.email = request.form.get('email')
+    user.first_name = request.form.get('first_name')
+    user.last_name = request.form.get('last_name')
+    user.description = request.form.get('description')
+
+    if user.save():
+        flash('Profile updated', 'success')
+        return redirect(url_for('users.edit', id=user.id))
+    else:
+        flash('Something went wrong, please try again', 'danger')
+        return redirect(url_for('users.edit', id=user.id))
 
 @users_blueprint.route('/<id>/follow')
 def follow(id):
