@@ -52,6 +52,7 @@ class User(BaseModel, UserMixin):
             self.errors.append('Invalid email address')
 
 
+
         # When user.save() is a create
         if self.id is None:
             if User.get_or_none(User.username == self.username):
@@ -60,11 +61,20 @@ class User(BaseModel, UserMixin):
             if User.get_or_none(User.email == self.email):
                 self.errors.append(f'Email "{self.email}" has already been taken!')
 
-            self.password = generate_password_hash(self.password)
+            if self.password:
+                if not re.match(r"^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+){4,}$", self.password):
+                    self.errors.append("Password must be at least 4 characters long, and contain at least one digit and one letter.")
+
+                self.password = generate_password_hash(self.password)
+            else:
+                self.errors.append('Password must not be blank')
+
+
+
+
         # When user.save() is an update
         else:
             # if user change email:
-            print(self.new_email, self.old_email, self.new_email != self.old_email)
             if self.new_email != self.old_email:
                 if User.get_or_none(User.email == self.new_email):
                     self.errors.append(f'New email "{self.new_email}" has already been taken!')
@@ -73,7 +83,7 @@ class User(BaseModel, UserMixin):
 
             # if user changes password
             if self.password:
-                if len(self.password) < 4:
-                    self.errors.append('Password must be at least 4 characters')
+                if not re.match(r"^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+){4,}$", self.password):
+                    self.errors.append("Password must be at least 4 characters long, and contain at least one digit and one letter.")
                 else:
                     self.password = generate_password_hash(self.password)

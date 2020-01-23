@@ -68,6 +68,9 @@ def edit(id):
     return render_template('/users/edit.html', user=user)
 
 
+'''
+User Edit Profile
+'''
 @users_blueprint.route('/<id>', methods=['POST'])
 @check_user_access
 def update(id):
