@@ -11,6 +11,7 @@ sessions_blueprint = Blueprint('sessions',
 
 @sessions_blueprint.route('/new', methods=['GET'])
 def new():
+    print(request.args)
     return render_template('sessions/new.html')
 
 

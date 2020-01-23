@@ -13,6 +13,8 @@
     }
 
     .auth-btn {
+      text-decoration: none;
+      color: inherit;
       &:hover {
         cursor: pointer;
         color: $text-gray;

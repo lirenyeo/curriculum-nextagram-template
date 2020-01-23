@@ -125,7 +125,7 @@
       class="alert alert-{{ 'danger' if category == 'message' else category }} font-secondary text-center"
       role="alert"
     >
-      {{ message }}
+      {{ message | safe }}
     </div>
     {% endfor %} {% endif %} {% endwith %} {% block content %} {% endblock %}
   </body>

@@ -14,16 +14,15 @@
           Sign up to see photos and videos from your friends.
       </p>
       <form action="{{ url_for('users.create') }}" method="POST">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
         <input class="form-control mb-2 font-secondary" type="text" placeholder="username" name="username">
         <input class="form-control mb-2 font-secondary" type="email" placeholder="email" name="email">
         <input class="form-control mb-3 font-secondary" type="password" placeholder="password" name="password">
+        <input class="form-control mb-3 font-secondary" type="password" placeholder="confirm password" name="password_confirm">
         <input class="btn btn-block btn-primary" type="submit" value="Sign Up">
       </form>
       <hr class="my-4 ">
-      <button class="border-0 text-center d-block mx-auto">
-        <img height="30" src="http://cofarming.info/wp-content/uploads/2017/01/facebook-icon-preview-1-400x400.png">
-        Login with Facebook
-      </button>
+      {% include '_auth_logins.html' %}
     </div>
   </div>
 
