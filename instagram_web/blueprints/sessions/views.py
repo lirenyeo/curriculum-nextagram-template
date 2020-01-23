@@ -36,7 +36,6 @@ def destroy():
 
 @sessions_blueprint.route('/authorize/google')
 def authorize():
-    breakpoint()
     oauth.google.authorize_access_token()
     email = oauth.google.get('https://www.googleapis.com/oauth2/v2/userinfo').json()['email']
     user = User.get_or_none(User.email == email)

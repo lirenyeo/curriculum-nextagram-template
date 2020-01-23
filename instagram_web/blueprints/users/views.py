@@ -13,7 +13,10 @@ users_blueprint = Blueprint('users',
 def check_user_access(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        if current_user.is_authenticated and int(kwargs.get('id')) != current_user.id:
+        if not current_user.is_authenticated:
+            return redirect('/')
+
+        if int(kwargs.get('id')) != current_user.id:
             return render_template('users/404.html')
         return f(*args, **kwargs)
     return decorated_function
@@ -22,13 +25,15 @@ def check_user_access(f):
 def load_user(user_id):
     return User.get_by_id(user_id)
 
-
+'''
+User Sign Up Page
+'''
 @users_blueprint.route('/new', methods=['GET'])
 def new():
     return render_template('users/new.html')
 
 '''
-User Sign Up
+User Sign Up Logic
 '''
 @users_blueprint.route('/', methods=['POST'])
 def create():
@@ -47,7 +52,9 @@ def create():
         flash('<br>'.join(user.errors))
         return render_template('users/new.html')
 
-
+'''
+User Profile Page
+'''
 @users_blueprint.route('/<username>', methods=["GET"])
 def show(username):
     user = User.get_or_none(username=username)
@@ -56,28 +63,32 @@ def show(username):
     else:
         return render_template('users/404.html')
 
-
+'''
+User Index Page
+'''
 @users_blueprint.route('/', methods=["GET"])
 def index():
     return "USERS"
 
+'''
+User Profile Edit Page
+'''
 @users_blueprint.route('/<id>/edit', methods=['GET'])
 @check_user_access
 def edit(id):
     user = User.get_by_id(id)
     return render_template('/users/edit.html', user=user)
 
-
 '''
-User Edit Profile
+User Profile Edit Logic
 '''
 @users_blueprint.route('/<id>', methods=['POST'])
 @check_user_access
 def update(id):
     user = User.get_by_id(id)
 
-    user.new_email = request.form.get('email')
     user.old_email = user.email
+    user.email = request.form.get('email')
 
     user.first_name = request.form.get('first_name')
     user.last_name = request.form.get('last_name')
@@ -98,6 +109,9 @@ def update(id):
         flash('<br>'.join(user.errors), 'danger')
         return redirect(url_for('users.edit', id=user.id))
 
+'''
+Follow a user (API)
+'''
 @users_blueprint.route('/<id>/follow')
 def follow(id):
     follow = Following(idol_id=id, fan_id=current_user.id)
@@ -109,7 +123,9 @@ def follow(id):
 
     return jsonify(response)
 
-
+'''
+Unfollow a user (API)
+'''
 @users_blueprint.route('/<id>/unfollow')
 def unfollow(id):
    unfollow = Following.delete().where((Following.idol_id == id) &

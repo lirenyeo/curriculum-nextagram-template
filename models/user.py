@@ -13,9 +13,10 @@ class User(BaseModel, UserMixin):
     password = pw.CharField()
     description = pw.CharField(null=True)
 
-    def validate(self):
-        self.errors.append('username existed')
-        self.errors.append('this always happen')
+
+    @hybrid_property
+    def fullname(self):
+        return self.first_name + ' ' + self.last_name
 
 
     @hybrid_property
@@ -35,10 +36,6 @@ class User(BaseModel, UserMixin):
         return user in self.followers
 
 
-    @hybrid_property
-    def fullname(self):
-        return self.first_name + ' ' + self.last_name
-
 
     def validate_login(self, password):
         return check_password_hash(self.password, password)
@@ -50,7 +47,6 @@ class User(BaseModel, UserMixin):
 
         if not re.match(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", self.email):
             self.errors.append('Invalid email address')
-
 
 
         # When user.save() is a create
@@ -75,11 +71,9 @@ class User(BaseModel, UserMixin):
         # When user.save() is an update
         else:
             # if user change email:
-            if self.new_email != self.old_email:
-                if User.get_or_none(User.email == self.new_email):
-                    self.errors.append(f'New email "{self.new_email}" has already been taken!')
-                else:
-                    self.email = self.new_email
+            if self.email != self.old_email:
+                if User.get_or_none(User.email == self.email):
+                    self.errors.append(f'New email "{self.email}" has already been taken!')
 
             # if user changes password
             if self.password:
