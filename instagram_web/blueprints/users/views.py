@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, flash, request, redirect, url_for, jsonify
-from flask_login import current_user, login_user, logout_user
+from flask_login import current_user, login_user, logout_user, login_required
 from app import login_manager
 from models.user import User
 from models.following import Following

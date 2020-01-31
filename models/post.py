@@ -8,6 +8,9 @@ class Post(BaseModel):
     image_path = pw.CharField(null=False)
     user = pw.ForeignKeyField(User, backref='posts', null=False)
 
+    def get_total_amount(self):
+        return sum([e.amount for e in self.endorsements])
+
     @hybrid_property
     def image_full_url(self):
         return f"https://{Config.S3_BUCKET}.s3-ap-southeast-1.amazonaws.com/{self.image_path}"

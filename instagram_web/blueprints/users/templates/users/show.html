@@ -22,7 +22,8 @@
         <span class="mx-1"><strong id="followers-count">{{user.followers | length}}</strong> Followers</span>
         <span class="mx-1"><strong id="followings-count">{{user.followings | length}}</strong> Follows</span>
       </p>
-      {% if current_user.username != user.username %}
+      <div class="d-flex">
+        {% if current_user.username != user.username %}
         {% if current_user.is_following(user) %}
           <a id="{{user.id}}" href="{{url_for('users.unfollow', id=user.id)}}" class="unfollow-btn btn btn-outline-info">Unfollow</a>
         {% else %}
@@ -31,6 +32,7 @@
       {% else %}
         <a id="{{user.id}}" href="{{url_for('users.edit', id=user.id)}}" class="btn btn-outline-danger">Edit Profile</a>
       {% endif %}
+      </div>
       <div class="info">
         <label class="text-accent text-muted mb-0">Email</label>
         <h5 class="info-value">{{user.email}}</h5>
@@ -46,10 +48,14 @@
 
     <div class="right-grid col-md-8 bg-white">
       {% if user.posts.count() %}
-      <div class="grid">
+      <div class="grid d-flex flex-wrap justify-content-center">
         {% for post in user.posts %}
-          <div class="grid-item {{ 'grid-item--height2' if post.id % 2}}">
+          <div class="img-grid">
             <img src="{{post.image_full_url}}" />
+            <a class="btn btn-sm btn-outline-info" href="{{url_for('endorsements.new', post_id=post.id)}}">Endorse</a>
+            <span class="text-danger">
+              Collected ${{post.get_total_amount()}}
+            </span>
           </div>
         {% endfor %}
       </div>

@@ -81,3 +81,7 @@ class User(BaseModel, UserMixin):
                     self.errors.append("Password must be at least 4 characters long, and contain at least one digit and one letter.")
                 else:
                     self.password = generate_password_hash(self.password)
+            else:
+                actual_pass = User.get_by_id(self.id).password
+                breakpoint()
+                self.password = actual_pass

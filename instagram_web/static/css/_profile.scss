@@ -3,6 +3,14 @@
     padding: 1em;
     min-height: $content-height;
 
+    .img-grid {
+      img {
+        display: block;
+        margin: 15px 15px 15px 0;
+        height: 200px;
+      }
+    }
+
     .grid-item {
       float: left;
       height: 400px;
@@ -18,7 +26,7 @@
       img {
         height: 100%;
         width: 100%;
-        object-fit: cover;
+        object-fit: contain;
       }
     }
   }
