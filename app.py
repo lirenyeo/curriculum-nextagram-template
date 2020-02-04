@@ -1,4 +1,5 @@
 import os
+import click
 import config
 from flask_login import LoginManager
 from flask import Flask
@@ -51,3 +52,11 @@ def _db_close(exc):
         print(db)
         print(db.close())
     return exc
+
+@click.command()
+def seed():
+    from seed import seed_users, seed_posts
+    seed_users()
+    seed_posts()
+
+app.cli.add_command(seed)

@@ -5,6 +5,6 @@ import peewee as pw
 
 class Endorsement(BaseModel):
     amount = pw.DecimalField(decimal_places=2)
-    post = pw.ForeignKeyField(Post, backref="endorsements")
+    post = pw.ForeignKeyField(Post, backref="endorsements", on_delete='CASCADE')
 
 

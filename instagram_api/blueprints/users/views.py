@@ -66,6 +66,7 @@ def login():
             "jwt": create_access_token(identity=user.id)
         })
     else:
-        return jsonify({
+        return jsonify([{
             "message": "Invalid login credentials"
-        }), 400
+        }]), 400
+

@@ -25,3 +25,13 @@ def create():
             flash(f"{res[0]} was failed to be uploaded", "danger")
 
     return jsonify(filename=[request.files.get(f).filename for f in request.files])
+
+@posts_blueprint.route('/<id>/delete')
+def destroy(id):
+    post = Post.get_by_id(id)
+    if post.delete_instance():
+        flash('Image deleted!', 'danger')
+        return redirect(url_for('users.show', username=current_user.username))
+    else:
+        flash('<br>'.join(post.errors))
+        return redirect(url_for('users.show', username=current_user.username))

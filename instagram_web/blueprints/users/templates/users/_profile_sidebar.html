@@ -1,0 +1,36 @@
+<img
+  src="https://ui-avatars.com/api/?name={{
+    user.username
+  }}"
+  class="rounded-circle z-depth-0"
+  alt="avatar image"
+  height="150"
+/>
+<h4 class="username mt-3">{{user.username}}</h4>
+<p class="text-right text-muted">
+  <span class="mx-1"><strong>{{user.posts.count()}}</strong> Post</span>
+  <span class="mx-1"><strong id="followers-count">{{user.followers | length}}</strong> Followers</span>
+  <span class="mx-1"><strong id="followings-count">{{user.followings | length}}</strong> Follows</span>
+</p>
+<div class="d-flex">
+  {% if current_user.username != user.username %}
+  {% if current_user.is_following(user) %}
+    <a id="{{user.id}}" href="{{url_for('users.unfollow', id=user.id)}}" class="unfollow-btn btn btn-outline-info">Unfollow</a>
+  {% else %}
+    <a id="{{user.id}}" href="{{url_for('users.follow', id=user.id)}}" class="follow-btn btn btn-info">Follow</a>
+  {% endif %}
+{% else %}
+  <a id="{{user.id}}" href="{{url_for('users.edit', id=user.id)}}" class="btn btn-outline-danger">Edit Profile</a>
+{% endif %}
+</div>
+<div class="info">
+  <label class="text-accent text-muted mb-0">Email</label>
+  <h5 class="info-value">{{user.email}}</h5>
+  <label class="text-accent text-muted mb-0">Last Login</label>
+  <h5 class="info-value">{{user.updated_at.strftime('%b %-d, %Y at %-I:%M%p')}}</h5>
+</div>
+<blockquote class="blockquote">
+  <hr>
+  <img src="{{ url_for('static', filename='images/quote.svg')}}" >
+  {{ user.description or "<em class='text-muted'>This user has nothing to say!</em>" | safe}}
+</blockquote>

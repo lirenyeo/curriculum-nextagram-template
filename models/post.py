@@ -6,7 +6,7 @@ import peewee as pw
 
 class Post(BaseModel):
     image_path = pw.CharField(null=False)
-    user = pw.ForeignKeyField(User, backref='posts', null=False)
+    user = pw.ForeignKeyField(User, backref='posts', null=False, on_delete='CASCADE')
 
     def get_total_amount(self):
         return sum([e.amount for e in self.endorsements])

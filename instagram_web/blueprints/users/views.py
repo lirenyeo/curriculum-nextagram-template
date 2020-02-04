@@ -21,9 +21,11 @@ def check_user_access(f):
         return f(*args, **kwargs)
     return decorated_function
 
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.get_by_id(user_id)
+
 
 '''
 User Sign Up Page
@@ -31,6 +33,7 @@ User Sign Up Page
 @users_blueprint.route('/new', methods=['GET'])
 def new():
     return render_template('users/new.html')
+
 
 '''
 User Sign Up Logic
@@ -52,6 +55,7 @@ def create():
         flash('<br>'.join(user.errors))
         return render_template('users/new.html')
 
+
 '''
 User Profile Page
 '''
@@ -63,12 +67,14 @@ def show(username):
     else:
         return render_template('users/404.html')
 
+
 '''
 User Index Page
 '''
 @users_blueprint.route('/', methods=["GET"])
 def index():
     return "USERS"
+
 
 '''
 User Profile Edit Page
@@ -78,6 +84,7 @@ User Profile Edit Page
 def edit(id):
     user = User.get_by_id(id)
     return render_template('/users/edit.html', user=user)
+
 
 '''
 User Profile Edit Logic
@@ -109,31 +116,39 @@ def update(id):
         flash('<br>'.join(user.errors), 'danger')
         return redirect(url_for('users.edit', id=user.id))
 
+
 '''
 Follow a user (API)
 '''
 @users_blueprint.route('/<id>/follow')
 def follow(id):
     follow = Following(idol_id=id, fan_id=current_user.id)
-    follow.save()
-    response = {
-        "status": "success",
-        "new_follower_count": len(User.get_by_id(id).followers)
-    }
+    if follow.save():
+        return jsonify({
+            "status": "success",
+            "new_follower_count": len(User.get_by_id(id).followers)
+        }), 200
+    else:
+        return jsonify({
+            "status": "failed",
+            "messages": follow.errors
+        }), 500
 
-    return jsonify(response)
 
 '''
 Unfollow a user (API)
 '''
 @users_blueprint.route('/<id>/unfollow')
 def unfollow(id):
-   unfollow = Following.delete().where((Following.idol_id == id) &
-                              (current_user.id == Following.fan_id))
-   unfollow.execute()
-   response = {
-       "status": "success",
-       "new_follower_count": len(User.get_by_id(id).followers)
-   }
-
-   return jsonify(response)
+    unfollow = Following.delete().where((Following.idol_id == id) &
+                                        (current_user.id == Following.fan_id))
+    if unfollow.execute():
+        return jsonify({
+            "status": "success",
+            "new_follower_count": len(User.get_by_id(id).followers)
+        }), 200
+    else:
+        return jsonify({
+            "status": "failed",
+            "messages": unfollow.errors
+        }), 500

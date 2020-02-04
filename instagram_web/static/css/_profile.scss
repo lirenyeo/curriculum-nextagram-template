@@ -1,37 +1,79 @@
 #user-show {
+  #grid-menu {
+    z-index: 5;
+    position: sticky;
+    top: 0;
+    right: 0;
+    left: 0;
+    button {
+      margin-left: auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: $primary-accent;
+      &:hover {
+        transform: scale(1.05);
+      }
+      img {
+        height: 15px;
+        margin-right: 6px;
+      }
+    }
+  }
+
   .right-grid {
+    overflow-y: auto;
     padding: 1em;
     min-height: $content-height;
 
     .img-grid {
+      position: relative;
+
+      .delete-btn {
+        display: none;
+        border-radius: 50%;
+        z-index: 10;
+        position: absolute;
+        top: 5px;
+        right: 20px;
+        cursor: pointer;
+        &:hover {
+          background: $primary-accent;
+          color: white;
+        }
+      }
+
       img {
         display: block;
         margin: 15px 15px 15px 0;
         height: 200px;
+        border-radius: 4px;
       }
     }
 
-    .grid-item {
-      float: left;
-      height: 400px;
-      margin: 2px;
-      width: calc(33.33% - 4px);
-      @media (max-width: $md-break) {
-        width: calc(50% - 4px);
+    .grid.edit-mode {
+      .delete-btn {
+        display: block;
       }
-      @media (max-width: $sm-break) {
-        width: 100%;
+      .img-grid:nth-child(even) .img {
+        animation-name: keyframes1;
+        animation-duration: (random(10) + 20) /100 + s;
+        animation-iteration-count: infinite;
+        transform-origin: 50% 10%;
       }
 
-      img {
-        height: 100%;
-        width: 100%;
-        object-fit: contain;
+      .img-grid:nth-child(odd) .img {
+        animation-name: keyframes2;
+        animation-duration: (random(8) + 22) /100 + s;
+        animation-iteration-count: infinite;
+        animation-direction: alternate;
+        transform-origin: 30% 5%;
       }
     }
   }
 
   .left-grid {
+    overflow-y: auto;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -79,6 +121,27 @@
         // color: $text-gray;
       }
     }
+  }
+}
 
+@keyframes keyframes1 {
+  0% {
+    transform: rotate(-1deg);
+    animation-timing-function: ease-in;
+  }
+  50% {
+    transform: rotate(1.5deg);
+    animation-timing-function: ease-out;
+  }
+}
+
+@keyframes keyframes2 {
+  0% {
+    transform: rotate(1deg);
+    animation-timing-function: ease-in;
+  }
+  50% {
+    transform: rotate(-1.5deg);
+    animation-timing-function: ease-out;
   }
 }
