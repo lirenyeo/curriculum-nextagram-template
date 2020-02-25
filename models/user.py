@@ -13,11 +13,9 @@ class User(BaseModel, UserMixin):
     password = pw.CharField()
     description = pw.CharField(null=True)
 
-
     @hybrid_property
     def fullname(self):
         return self.first_name + ' ' + self.last_name
-
 
     @hybrid_property
     def followers(self):
@@ -35,8 +33,6 @@ class User(BaseModel, UserMixin):
     def is_followed_by(self, user):
         return user in self.followers
 
-
-
     def validate_login(self, password):
         return check_password_hash(self.password, password)
 
@@ -47,7 +43,6 @@ class User(BaseModel, UserMixin):
 
         if not re.match(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", self.email):
             self.errors.append('Invalid email address')
-
 
         # When user.save() is a create
         if self.id is None:
@@ -65,9 +60,6 @@ class User(BaseModel, UserMixin):
             else:
                 self.errors.append('Password must not be blank')
 
-
-
-
         # When user.save() is an update
         else:
             # if user change email:
@@ -81,7 +73,8 @@ class User(BaseModel, UserMixin):
                     self.errors.append("Password must be at least 4 characters long, and contain at least one digit and one letter.")
                 else:
                     self.password = generate_password_hash(self.password)
+            # if user leaves password field blank during profile edit
             else:
+                # get back the user's old password (should find a better approach for this)
                 actual_pass = User.get_by_id(self.id).password
-                breakpoint()
                 self.password = actual_pass

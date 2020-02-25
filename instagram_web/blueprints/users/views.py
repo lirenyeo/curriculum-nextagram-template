@@ -105,7 +105,7 @@ def update(id):
 
     if user.save():
         # if user changed password successfully:
-        if user.password:
+        if request.form.get('password'):
             flash('You have changed your password. Please log in again.', 'success')
             logout_user()
             return redirect(url_for('sessions.new'))
